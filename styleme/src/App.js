@@ -8,14 +8,29 @@ const Title = styled.h1`
   text-align: center;
   color: palevioletred;
 `;
-const Div = styled.div`
-width:200px;
-height:200px;
-z-index:-1;`
-const ShowPicture = (props) =>
-  <Div>
-    {props.children}
-  </Div>
+const Img = styled.img`
+position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;`
+    
+const ShowPicture = (props) => {
+  return (
+    <div>
+      <Img src={logo} />
+      {props.children}
+    </div>
+  )
+}
+
+const Myimage = (props) => <h1>jjjjj </h1>
+
+const addLogoName = (name) => {
+  return (Component) => {
+    return <ShowPicture name={name}>{Component}</ShowPicture>
+  }
+}
+const withLogo = addLogoName("logo");
 
 class App extends Component {
   render() {
@@ -25,11 +40,11 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
         </header>
         <Title>this</Title>
-        <ShowPicture><img src={tile} /></ShowPicture>
-        hello
+        {withLogo(<Myimage />)}
       </div>
     );
   }
 }
+
 
 export default App;
