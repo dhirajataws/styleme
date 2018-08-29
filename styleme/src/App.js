@@ -85,22 +85,19 @@ const Container = styled.div`
 display: flex;
 flex-wrap: wrap;
 justify-content:space-between;
-background-color:black;
-
 `;
 const InnerImg = styled.img`
 display:flex;
 
 `;
 class App extends Component {
+
   render() {
     return (
-
       <Container>
         <Column xs="12" md="4" sm="6" lg="4" src={tile}  >
         </Column>
-        <Column xs="12" md="4" sm="6" lg="4" src={tile}  >
-        </Column>
+
 
       </Container>
     );
