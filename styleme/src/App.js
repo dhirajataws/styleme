@@ -26,28 +26,29 @@ const ShowPicture = (props) => {
 const ForImage = (props) => <Img src={tile} />
 const addLogoName = (logo) => (Component) => <ShowPicture><Component /></ShowPicture>
 
-const Row = styled.div`
-display: flex;
-justify-content: space-between;
+// const Row = styled.div`
+// display:flex;
 
-&::after{
-  content:",
-  clearboth;
- 
-}
-`;
+// `;
 // const Column = styled.img`
 // display:block;
 // float:left;
 // width:100%;
 // height:100%;
+//src:${props => props.src};
 
-// src:${props => props.src};
+// 
 // `;
 
-const Column = styled.div`
-float:left;
-${({ xs }) => (xs ? getWidthString(xs) : "width:100%")};
+const Column = styled.img`
+src:${props => props.src};
+display:flex;
+margin:5%;
+
+
+@media only screen and (min-width:320px){
+  ${({ xs }) => xs && getWidthString(xs)};
+}
 
 @media only screen and (min-width:768px){
   ${({ sm }) => sm && getWidthString(sm)};
@@ -58,6 +59,9 @@ ${({ xs }) => (xs ? getWidthString(xs) : "width:100%")};
 @media only screen and (min-width:1200px){
   ${({ lg }) => lg && getWidthString(lg)};
 }
+@media only screen and (min-width:1440px){
+  ${({ xl }) => xl && getWidthString(xl)};
+}
 `;
 
 
@@ -66,11 +70,7 @@ function getWidthString(span) {
   let width = span / 12 * 100;
   return `width:${width}%;`;
 }
-function getWidthString(span) {
-  if (!span) return;
-  let width = span / 12 * 100;
-  return `width:${width}%;`;
-}
+
 // const withLogo = addLogoName("logo");
 // class App extends Component {
 //   render() {
@@ -83,21 +83,26 @@ function getWidthString(span) {
 // }
 const Container = styled.div`
 display: flex;
-justify-content: space-between;
-`;
+flex-wrap: wrap;
+justify-content:space-between;
+background-color:black;
 
+`;
+const InnerImg = styled.img`
+display:flex;
+
+`;
 class App extends Component {
   render() {
     return (
-      <Container>
-        <Row>
-          <Column xs="12" md="8" xm="6" lg="2"  >
-            <img src={tile} />
-            <img src={tile} />
-          </Column>
-        </Row>
-      </Container>
 
+      <Container>
+        <Column xs="12" md="4" sm="6" lg="4" src={tile}  >
+        </Column>
+        <Column xs="12" md="4" sm="6" lg="4" src={tile}  >
+        </Column>
+
+      </Container>
     );
   }
 }
@@ -114,7 +119,17 @@ class App extends Component {
 
 export default App;
 
+{/* <Container>
+          <img src={tile} />
+          <img src={tile} />
+          {/* <Row>
+          <Column xs="12" md="8" xm="6" lg="2"  >
+            <img src={tile} />
+            <img src={tile} />
+          </Column>
+        </Row> */}
 
+        // </Container > * /}
 
 // const Row = styled.div`
 // &::after{
