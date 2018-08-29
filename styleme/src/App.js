@@ -27,20 +27,45 @@ const ForImage = (props) => <Img src={tile} />
 const addLogoName = (logo) => (Component) => <ShowPicture><Component /></ShowPicture>
 
 const Row = styled.div`
+display: flex;
+justify-content: space-between;
+
 &::after{
   content:",
   clearboth;
-  display:table;
+ 
 }
 `;
-const Column = styled.img`
-display:block;
-float:left;
-width:100%;
-height:100%;
+// const Column = styled.img`
+// display:block;
+// float:left;
+// width:100%;
+// height:100%;
 
-src:${props => props.src};
+// src:${props => props.src};
+// `;
+
+const Column = styled.div`
+float:left;
+${({ xs }) => (xs ? getWidthString(xs) : "width:100%")};
+
+@media only screen and (min-width:768px){
+  ${({ sm }) => sm && getWidthString(sm)};
+}
+@media only screen and (min-width:992px){
+  ${({ md }) => md && getWidthString(md)};
+}
+@media only screen and (min-width:1200px){
+  ${({ lg }) => lg && getWidthString(lg)};
+}
 `;
+
+
+function getWidthString(span) {
+  if (!span) return;
+  let width = span / 12 * 100;
+  return `width:${width}%;`;
+}
 function getWidthString(span) {
   if (!span) return;
   let width = span / 12 * 100;
@@ -56,15 +81,23 @@ function getWidthString(span) {
 //     );
 //   }
 // }
-
+const Container = styled.div`
+display: flex;
+justify-content: space-between;
+`;
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <Column src={tile} />
+      <Container>
+        <Row>
+          <Column xs="12" md="8" xm="6" lg="2"  >
+            <img src={tile} />
+            <img src={tile} />
+          </Column>
+        </Row>
+      </Container>
 
-      </div>
     );
   }
 }
