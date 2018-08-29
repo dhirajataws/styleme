@@ -5,14 +5,12 @@ import tile from './tile.jpg';
 import logo from './logo.png';
 
 const Img = styled.img`
-position: absolute
-    display:block;
-    width:100%;
+display: block;
+width:100%;
+height:100%;
     `
 const ForgroundImg = styled.img`
     position: absolute;
-        left: 0px;
-        top: 0px;
         z-index: 1;
         opacity:0.5;
         `
@@ -28,33 +26,48 @@ const ShowPicture = (props) => {
 const ForImage = (props) => <Img src={tile} />
 const addLogoName = (logo) => (Component) => <ShowPicture><Component /></ShowPicture>
 
-
-const withLogo = addLogoName("logo");
-class App extends Component {
-  render() {
-    return (
-      <div>
-        {withLogo(ForImage)}
-      </div>
-    );
-  }
+const Row = styled.div`
+&::after{
+  content:",
+  clearboth;
+  display:table;
 }
+`;
+const Column = styled.img`
+display:block;
+float:left;
+width:100%;
+height:100%;
 
-
+src:${props => props.src};
+`;
+function getWidthString(span) {
+  if (!span) return;
+  let width = span / 12 * 100;
+  return `width:${width}%;`;
+}
+// const withLogo = addLogoName("logo");
 // class App extends Component {
 //   render() {
 //     return (
 //       <div>
-//         <Row>
-//           <Column sm="12" md="6" lg="6">
-//             <img src={tile} />
-//           </Column>
-
-//         </Row>
+//         {withLogo(ForImage)}
 //       </div>
 //     );
 //   }
 // }
+
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Column src={tile} />
+
+      </div>
+    );
+  }
+}
 // class App extends Component {
 //   render() {
 //     return (
