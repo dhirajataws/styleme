@@ -7,7 +7,7 @@ import logo from './logo.png';
 const Basediv = styled.div`
 display:flex;
 position:relative;
-padding:5px;
+margin:8vw;
 @media only screen and (min-width:320px){
   ${({ xs }) => xs && getWidthString(xs)};
 }
@@ -31,8 +31,8 @@ flow-direction:row;
 justify-content:stretch;
 position:absolute;
 width:100%;
-top:80%;
-height:20%;
+top:75%;
+height:25%;
 color:red;
 background-color:black;
 opacity:0.5;
@@ -80,13 +80,14 @@ const ForImage = (props) => <Img src={props.src} />
 const addImage = (imageName) => () => <Img src={imageName}></Img>
 
 const addLogoName = (values) => (Component) => <ShowPicture specs={values}><Component src={tile} /></ShowPicture>
-const values = { logo, xs: "6", md: "4", sm: "6", lg: "6" }
+const values = { logo, xs: "6", md: "4", sm: "6", lg: "4" }
 const withLogo = addLogoName(values);
 // const withImage = addImage(tile);
 class App extends Component {
   render() {
     return (
       <Container>
+        {withLogo(addImage(tile))}
         {withLogo(addImage(tile))}
 
       </Container>
