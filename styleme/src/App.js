@@ -4,26 +4,6 @@ import styled from 'styled-components';
 import tile from './tile.jpg';
 import logo from './logo.png';
 
-const Basediv1 = styled.div`
-display:flex;
-position:relative;
-@media only screen and (min-width:320px){
-  ${({ xs }) => xs && getWidthString(xs)};
-}
-@media only screen and (min-width:768px){
-  ${({ sm }) => sm && getWidthString(sm)};
-}
-@media only screen and (min-width:992px){
-  ${({ md }) => md && getWidthString(md)};
-}
-@media only screen and (min-width:1200px){
-  ${({ lg }) => lg && getWidthString(lg)};
-}
-@media only screen and (min-width:1440px){
-  ${({ xl }) => xl && getWidthString(xl)};
-}
-`;
-
 const Basediv = styled.div`
 display:flex;
 position:relative;
@@ -45,29 +25,6 @@ padding:5px;
 }
 `;
 
-
-
-// const Img = styled(BaseImg)`
-// src:${props => props.src};
-// display:flex;
-// z - index: -1;
-// `;
-
-// const ForgroundImg = styled(BaseImg)`
-// display:flex;
-// z - index: 2;
-// opacity: 0.5;
-// `;
-// const BottomDiv = styled(Basediv)`
-// height:100px;
-// width:100px;
-// background-color:red;
-// opacity:0.5;
-// color:red;
-// z - index: 2;
-
-// `
-
 const Bar = styled.div`
 display:flex;
 flow-direction:row;
@@ -80,37 +37,32 @@ color:red;
 background-color:black;
 opacity:0.5;
 z-index:2;
-margin:-5;
 `
 const Text = styled.div`
 display:flex;
-font-size:30px;
-margin:10px;
+align-self:center;
+font-size:5vmin;
 color:white;
-opacity:1.5;
 `
 const LogoImg = styled.img`
+align-self:center;
 width:15%;
-height:100%;
+height:80%;
 z-index:3;
 `;
 const Img = styled.img`
+src:${props => props.src};
 width:100%;
 z-index:1;
 `;
 const ShowPicture = (props) => {
   return (
-    <Basediv xs="6" lg="4">
-      {/* {props.children} */}
-      <Img src={tile} />
+    <Basediv {...props.specs}>
+      {props.children}
       <Bar><LogoImg src={logo} /><Text>Home and Away</Text></Bar>
     </Basediv>
   )
 }
-// const addLogoName = ({ logo, xs, md, sm, lg, tile }) => (Component) => <ShowPicture><Component xs={xs} md={md} cm={sm} lg={lg} src={tile} /></ShowPicture>
-
-const addLogoName = ({ logo, xs, md, sm, lg, tile }) => (Component) => <ShowPicture><Component xs={xs} md={md} cm={sm} lg={lg} src={tile} /></ShowPicture>
-
 
 function getWidthString(span) {
   if (!span) return;
@@ -124,14 +76,21 @@ flex-wrap: wrap;
 justify-content:space-between;
 `;
 
-const withLogo = addLogoName({ logo, xs: "6", md: "4", sm: "6", lg: "4", tile });
+const ForImage = (props) => <Img src={props.src} />
+const addImage = (imageName) => () => <Img src={imageName}></Img>
+
+const addLogoName = (values) => (Component) => <ShowPicture specs={values}><Component src={tile} /></ShowPicture>
+const values = { logo, xs: "6", md: "4", sm: "6", lg: "6" }
+const withLogo = addLogoName(values);
+// const withImage = addImage(tile);
 class App extends Component {
   render() {
     return (
       <Container>
-        {withLogo()}
-        {withLogo()}
+        {withLogo(addImage(tile))}
+
       </Container>
+
     );
   }
 }
