@@ -36,8 +36,8 @@ flow-direction:row;
 justify-content:stretch;
 position:absolute;
 width:100%;
-top:85%;
-height:15%;
+top:80%;
+height:20%;
 color:red;
 background-color:black;
 opacity:0.5;
@@ -52,7 +52,7 @@ color:white;
 opacity:1.5;
 `
 const LogoImg = styled.img`
-width:20%;
+width:15%;
 height:100%;
 z-index:3;
 
