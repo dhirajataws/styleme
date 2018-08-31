@@ -4,52 +4,12 @@ import styled from 'styled-components';
 import tile from './tile.jpg';
 import logo from './logo.png';
 
-const Img = styled.img`
-display: block;
-width:100%;
-height:100%;
-    `
-const ForgroundImg = styled.img`
-    position: absolute;
-        z-index: 1;
-        opacity:0.5;
-        `
-const ShowPicture = (props) => {
-  return (
-    <div>
-      <ForgroundImg src={logo} />
-      {props.children}
-    </div>
-  )
-}
 
-const ForImage = (props) => <Img src={tile} />
-const addLogoName = (logo) => (Component) => <ShowPicture><Component /></ShowPicture>
-
-// const Row = styled.div`
-// display:flex;
-
-// `;
-// const Column = styled.img`
-// display:block;
-// float:left;
-// width:100%;
-// height:100%;
-//src:${props => props.src};
-
-// 
-// `;
-
-const Column = styled.img`
-src:${props => props.src};
+const Basediv = styled.div`
 display:flex;
-margin:5%;
-
-
 @media only screen and (min-width:320px){
   ${({ xs }) => xs && getWidthString(xs)};
 }
-
 @media only screen and (min-width:768px){
   ${({ sm }) => sm && getWidthString(sm)};
 }
@@ -64,58 +24,92 @@ margin:5%;
 }
 `;
 
+const BaseImg = styled.img`
+display:flex;
+margin:5%;
+position: absolute;
+@media only screen and (min-width:320px){
+  ${({ xs }) => xs && getWidthString(xs)};
+}
+@media only screen and (min-width:768px){
+  ${({ sm }) => sm && getWidthString(sm)};
+}
+@media only screen and (min-width:992px){
+  ${({ md }) => md && getWidthString(md)};
+}
+@media only screen and (min-width:1200px){
+  ${({ lg }) => lg && getWidthString(lg)};
+}
+@media only screen and (min-width:1440px){
+  ${({ xl }) => xl && getWidthString(xl)};
+}
+`;
+
+const Img = styled(BaseImg)`
+src:${props => props.src};
+display:flex;
+z - index: -1;
+`;
+
+const ForgroundImg = styled(BaseImg)`
+display:flex;
+z - index: 2;
+opacity: 0.5;
+`;
+const BottomDiv = styled(Basediv)`
+height:100px;
+width:100px;
+background-color:red;
+opacity:0.5;
+color:red;
+z - index: 2;
+
+`
+const ShowPicture = (props) => {
+  return (
+    <div>
+      {props.children}
+      {/* <ForgroundImg src={logo} /> */}
+      <BottomDiv />
+    </div>
+  )
+}
+const addLogoName = ({ logo, xs, md, sm, lg, tile }) => (Component) => <ShowPicture><Component xs={xs} md={md} cm={sm} lg={lg} src={tile} /></ShowPicture>
 
 function getWidthString(span) {
   if (!span) return;
   let width = span / 12 * 100;
-  return `width:${width}%;`;
+  return `width: ${width}%; `;
 }
 
-// const withLogo = addLogoName("logo");
-// class App extends Component {
-//   render() {
-//     return (
-//       <div>
-//         {withLogo(ForImage)}
-//       </div>
-//     );
-//   }
-// }
 const Container = styled.div`
 display: flex;
-flex-wrap: wrap;
-justify-content:space-between;
+flex - wrap: wrap;
+justify - content: space - between;
 `;
-const InnerImg = styled.img`
-display:flex;
 
-`;
+const withLogo = addLogoName({ logo, xs: "12", md: "4", sm: "6", lg: "4", tile });
 class App extends Component {
-
   render() {
     return (
       <Container>
-        <Column xs="12" md="4" sm="6" lg="4" src={tile}  >
-        </Column>
-
-
+        <Basediv>
+          {withLogo(Img)}
+        </Basediv>
       </Container>
     );
   }
 }
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         {withLogo(ForImage)}
-//       </div>
-//     );
-//   }
-// }
 
 
 export default App;
 
+// const ForImage = (props) => <Img src={tile} />
+
+//src:${props => props.src};
+
+// withLogo(<Column xs="12" md="4" sm="6" lg="4" src={tile}  >
+// </Column>)
 {/* <Container>
           <img src={tile} />
           <img src={tile} />
@@ -176,3 +170,36 @@ export default App;
 //     </div>
 //   )
 // }
+
+// class App extends Component {
+//   render() {
+//     return (
+//       <div className="App">
+//         {withLogo(ForImage)}
+//       </div>
+//     );
+//   }
+// }
+// const withLogo = addLogoName("logo");
+// class App extends Component {
+//   render() {
+//     return (
+//       <div>
+//         {withLogo(ForImage)}
+//       </div>
+//     );
+//   }
+// }
+// const Row = styled.div`
+// display:flex;
+
+// `;
+// const Column = styled.img`
+// display:block;
+// float:left;
+// width:100%;
+// height:100%;
+//src:${props => props.src};
+
+// 
+// `;
